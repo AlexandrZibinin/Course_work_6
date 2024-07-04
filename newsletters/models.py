@@ -9,9 +9,9 @@ class Newsletter(models.Model):
         blank=True, null=True, verbose_name="период отправки"
     )
     status = models.BooleanField(verbose_name="статус отправки")
-    client = models.ManyToManyField("Client", verbose_name="получатель")
+    client = models.ManyToManyField("clients.Client", verbose_name="получатель")
     message = models.ForeignKey(
-        "Message",
+        "letters.Letter",
         on_delete=models.CASCADE,
         blank=False,
         null=False,
@@ -19,7 +19,7 @@ class Newsletter(models.Model):
     )
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.first_send}"
 
     class Meta:
         verbose_name = "Рассылка"
